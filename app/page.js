@@ -3,17 +3,15 @@
 import { useState, useContext, useEffect, useRef } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, DoughnutController } from "chart.js";
 import { financeContext } from "@/lib/store/finance-context";
+import { authContext } from "@/lib/store/auth-context";
 import { currencyFormatter } from "@/lib/utils";
 import ExpenseCategoryItem from "@/components/ExpenseCategoryItem";
 import AddIncomeModal from "@/components/modals/AddIncomeModal";
 import AddExpensesModal from "@/components/modals/AddExpensesModal";
+import SignIn from "@/components/SignIn";
 
-// Register ALL necessary Chart.js components
 ChartJS.register(
-  ArcElement,
-  Tooltip,
-  Legend,
-  DoughnutController
+  ArcElement, Tooltip, Legend, DoughnutController
 );
 
 export default function Home() {
@@ -23,7 +21,8 @@ export default function Home() {
   const [balance, setBalance] = useState(0);
 
   const { expenses, income } = useContext(financeContext);
-  
+  const { user } = useContext(authContext);
+
   const chartInstanceRef = useRef(null);
   const chartRef = useRef(null);
 
@@ -85,6 +84,9 @@ export default function Home() {
       }
     };
   }, [expenses, income]);
+  if (!user) {
+    return <SignIn />;
+  }
 
   return (
     <>
@@ -119,6 +121,7 @@ export default function Home() {
         </section>
 
         <section className="py-6">
+          <a id="stats" />
           <h3 className="text-2xl">Stats</h3>
           <div className="w-full max-w-md mx-auto">
             <canvas ref={chartRef} />
