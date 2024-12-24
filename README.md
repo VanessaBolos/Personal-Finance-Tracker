@@ -1,5 +1,5 @@
 # Personal-Finance-Tracker 💵💵💵
-### You can try the application from [here!](https://nodejs.org/en/download/prebuilt-installer/current)
+### You can try the application from [here!](https://finance-test-five.vercel.app/)
 ## Project Overview: 
 #### A simple, customizable expense and income tracking app! 
 
